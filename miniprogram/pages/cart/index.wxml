@@ -10,19 +10,19 @@
         <image class="cart-image" src="{{item.image}}" mode="aspectFill"></image>
         <view class="cart-content">
           <view class="cart-top">
-            <view>
+            <view class="cart-main">
               <view class="cart-name">{{item.name}}</view>
               <view class="cart-desc">{{item.description}}</view>
             </view>
-            <view class="price-text">¥{{item.subtotal}}</view>
+            <view class="cart-price price-text">¥{{item.subtotal}}</view>
           </view>
-          <view class="cart-bottom">
-            <view class="stepper">
-              <button class="stepper-btn" data-id="{{item.dishId}}" bindtap="decreaseCount">-</button>
+          <view class="cart-actions">
+            <view class="remove-link pressable" hover-class="tap-feedback-soft" data-id="{{item.dishId}}" bindtap="removeItem">删除</view>
+            <view class="stepper-shell">
+              <view class="stepper-btn pressable" hover-class="tap-feedback" data-id="{{item.dishId}}" bindtap="decreaseCount">-</view>
               <view class="stepper-value">{{item.quantity}}</view>
-              <button class="stepper-btn" data-id="{{item.dishId}}" bindtap="increaseCount">+</button>
+              <view class="stepper-btn pressable" hover-class="tap-feedback" data-id="{{item.dishId}}" bindtap="increaseCount">+</view>
             </view>
-            <button class="remove-btn" data-id="{{item.dishId}}" bindtap="removeItem">删除</button>
           </view>
         </view>
       </view>
@@ -32,9 +32,9 @@
       <view class="checkout-bar">
         <view>
           <view class="checkout-total">合计 ¥{{cartState.totalAmount}}</view>
-          <view class="checkout-tip">当前先提交流程，后续会在下一步接入支付。</view>
+          <view class="checkout-tip">确认菜品后再下单，支付能力会在后续单独接入。</view>
         </view>
-        <button class="primary-btn checkout-btn" bindtap="submitOrder">提交订单</button>
+        <button class="primary-btn checkout-btn pressable" hover-class="tap-feedback" bindtap="goCheckout">去结算</button>
       </view>
     </view>
   </view>
@@ -42,6 +42,6 @@
   <view wx:else class="card empty-state">
     <view class="empty-title">购物车还是空的</view>
     <view class="empty-desc">先去选几样菜吧，热菜和主食都已经准备好了。</view>
-    <button class="primary-btn empty-btn" bindtap="goMenu">再逛逛</button>
+    <button class="primary-btn empty-btn pressable" hover-class="tap-feedback" bindtap="goMenu">再逛逛</button>
   </view>
 </view>

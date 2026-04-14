@@ -26,20 +26,20 @@
   </view>
 
   <view class="entry-list">
-    <view class="entry card">
+    <view class="entry card pressable" hover-class="tap-feedback-soft" bindtap="goMenu">
       <view>
         <view class="entry-title">去点餐</view>
         <view class="entry-desc">看看今天有什么热菜和主食。</view>
       </view>
-      <button class="primary-btn entry-btn" bindtap="goMenu">去点餐</button>
+      <button class="primary-btn entry-btn pressable" hover-class="tap-feedback" catchtap="goMenu">去点餐</button>
     </view>
 
-    <view class="entry card">
+    <view class="entry card pressable" hover-class="tap-feedback-soft" bindtap="goOrders">
       <view>
         <view class="entry-title">查看订单</view>
         <view class="entry-desc">已下单 {{orderCount}} 笔，随时回来看看进度。</view>
       </view>
-      <button class="ghost-btn entry-btn" bindtap="goOrders">查看订单</button>
+      <button class="ghost-btn entry-btn pressable" hover-class="tap-feedback" catchtap="goOrders">查看订单</button>
     </view>
   </view>
 

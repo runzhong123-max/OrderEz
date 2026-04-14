@@ -6,13 +6,18 @@ const {
   updateCartItemQuantity,
   removeCartItem,
   buildCartState,
+  buildMenuState,
   getCartCount,
 } = require("./utils/cart");
-const { createOrder, createPaymentRequest } = require("./services/order");
+const {
+  buildCheckoutState,
+  createOrderSubmission,
+} = require("./services/order");
 
 const CART_STORAGE_KEY = "order-ez-cart";
 const ORDER_STORAGE_KEY = "order-ez-orders";
 const CART_TAB_INDEX = 2;
+const CART_BADGE_DELAY = 80;
 
 function cloneOrderList(orderList) {
   return orderList.map((order) => ({
@@ -57,15 +62,29 @@ App({
     };
   },
 
+  getMenuState(activeCategoryId) {
+    return buildMenuState({
+      categories: this.globalData.categories,
+      dishes: this.globalData.dishes,
+      cartItems: this.globalData.cartItems,
+      activeCategoryId,
+    });
+  },
+
   getCartState() {
     return buildCartState(this.globalData.cartItems, this.globalData.dishes);
+  },
+
+  getCheckoutState() {
+    return buildCheckoutState(this.getCartState(), this.globalData.restaurant);
   },
 
   getOrders() {
     return cloneOrderList(this.globalData.orders);
   },
 
-  persistCart() {
+  setCartItems(cartItems) {
+    this.globalData.cartItems = normalizeCartItems(cartItems);
     wx.setStorageSync(CART_STORAGE_KEY, this.globalData.cartItems);
     this.updateCartBadge();
   },
@@ -76,18 +95,32 @@ App({
 
   updateCartBadge() {
     const totalCount = getCartCount(this.globalData.cartItems);
+    const applyBadgeUpdate = () => {
+      if (!totalCount) {
+        wx.removeTabBarBadge({
+          index: CART_TAB_INDEX,
+          fail() {},
+        });
+        return;
+      }
 
-    if (!totalCount) {
-      wx.removeTabBarBadge({
+      wx.setTabBarBadge({
         index: CART_TAB_INDEX,
+        text: totalCount > 99 ? "99+" : String(totalCount),
+        fail() {},
       });
-      return;
+    };
+
+    applyBadgeUpdate();
+
+    if (this.cartBadgeTimer) {
+      clearTimeout(this.cartBadgeTimer);
     }
 
-    wx.setTabBarBadge({
-      index: CART_TAB_INDEX,
-      text: totalCount > 99 ? "99+" : String(totalCount),
-    });
+    this.cartBadgeTimer = setTimeout(() => {
+      applyBadgeUpdate();
+      this.cartBadgeTimer = null;
+    }, CART_BADGE_DELAY);
   },
 
   addDishToCartById(dishId) {
@@ -100,8 +133,14 @@ App({
       };
     }
 
-    this.globalData.cartItems = addDishToCart(this.globalData.cartItems, dish);
-    this.persistCart();
+    if (dish.status !== "on") {
+      return {
+        success: false,
+        message: "这道菜暂时不能点",
+      };
+    }
+
+    this.setCartItems(addDishToCart(this.globalData.cartItems, dishId));
 
     return {
       success: true,
@@ -110,26 +149,21 @@ App({
   },
 
   changeCartItemQuantity(dishId, delta) {
-    this.globalData.cartItems = updateCartItemQuantity(
-      this.globalData.cartItems,
-      dishId,
-      delta
+    this.setCartItems(
+      updateCartItemQuantity(this.globalData.cartItems, dishId, delta)
     );
-    this.persistCart();
 
     return this.getCartState();
   },
 
   removeCartItemById(dishId) {
-    this.globalData.cartItems = removeCartItem(this.globalData.cartItems, dishId);
-    this.persistCart();
+    this.setCartItems(removeCartItem(this.globalData.cartItems, dishId));
 
     return this.getCartState();
   },
 
   clearCart() {
-    this.globalData.cartItems = [];
-    this.persistCart();
+    this.setCartItems([]);
   },
 
   submitOrder() {
@@ -142,16 +176,19 @@ App({
       };
     }
 
-    const order = createOrder(cartState, this.globalData.restaurant);
-    this.globalData.orders = [order].concat(this.globalData.orders);
-    this.globalData.pendingPayment = createPaymentRequest(order);
+    const submission = createOrderSubmission(
+      cartState,
+      this.globalData.restaurant
+    );
+    this.globalData.orders = [submission.order].concat(this.globalData.orders);
+    this.globalData.pendingPayment = submission.paymentRequest;
 
     this.persistOrders();
     this.clearCart();
 
     return {
       success: true,
-      order,
+      order: submission.order,
       paymentRequest: this.globalData.pendingPayment,
     };
   },

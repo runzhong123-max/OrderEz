@@ -58,27 +58,20 @@ Page({
     });
   },
 
-  submitOrder() {
+  goCheckout() {
     const app = getApp();
-    const result = app.submitOrder();
+    const checkoutState = app.getCheckoutState();
 
-    if (!result.success) {
+    if (checkoutState.isEmpty) {
       wx.showToast({
-        title: result.message,
+        title: "购物车还是空的",
         icon: "none",
       });
       return;
     }
 
-    this.syncCartState();
-
-    wx.showToast({
-      title: "订单已提交",
-      icon: "success",
-    });
-
-    wx.switchTab({
-      url: "/pages/orders/index",
+    wx.navigateTo({
+      url: "/pages/checkout/index",
     });
   },
 });

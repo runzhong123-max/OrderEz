@@ -7,83 +7,113 @@
 .cart-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .cart-card {
   display: flex;
-  gap: 20rpx;
-  padding: 22rpx;
+  gap: 16rpx;
+  padding: 18rpx;
+  align-items: flex-start;
 }
 
 .cart-image {
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: 22rpx;
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 18rpx;
   flex-shrink: 0;
 }
 
 .cart-content {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .cart-top {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 18rpx;
+  gap: 12rpx;
+  min-width: 0;
+}
+
+.cart-main {
+  flex: 1;
+  min-width: 0;
 }
 
 .cart-name {
-  font-size: 30rpx;
+  font-size: 28rpx;
   font-weight: 600;
   color: #2d241d;
+  line-height: 1.45;
+  word-break: break-all;
 }
 
 .cart-desc {
-  margin-top: 10rpx;
-  font-size: 24rpx;
+  margin-top: 8rpx;
+  font-size: 22rpx;
   line-height: 1.7;
   color: #85786b;
+  word-break: break-all;
 }
 
-.cart-bottom {
+.cart-price {
+  flex-shrink: 0;
+  padding-top: 2rpx;
+}
+
+.cart-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20rpx;
+  gap: 16rpx;
+  margin-top: 14rpx;
+  min-width: 0;
 }
 
-.stepper {
+.remove-link {
+  flex-shrink: 0;
+  font-size: 22rpx;
+  line-height: 1.4;
+  color: #9a6f56;
+  white-space: nowrap;
+}
+
+.stepper-shell {
   display: flex;
   align-items: center;
-  gap: 14rpx;
+  justify-content: space-between;
+  width: 148rpx;
+  max-width: 148rpx;
+  min-width: 148rpx;
+  padding: 4rpx;
+  border-radius: 999rpx;
+  background: #f4ede5;
+  flex-shrink: 0;
 }
 
 .stepper-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60rpx;
-  height: 60rpx;
+  width: 38rpx;
+  height: 38rpx;
   border-radius: 999rpx;
-  background: #f1ebe3;
+  background: #ffffff;
   color: #54483d;
-  font-size: 34rpx;
+  font-size: 24rpx;
+  line-height: 1;
 }
 
 .stepper-value {
-  min-width: 48rpx;
+  min-width: 28rpx;
   text-align: center;
-  font-size: 28rpx;
+  font-size: 22rpx;
+  font-weight: 500;
   color: #2f261f;
-}
-
-.remove-btn {
-  font-size: 24rpx;
-  color: #9a6f56;
 }
 
 .checkout-bar {
@@ -94,7 +124,7 @@
 }
 
 .checkout-total {
-  font-size: 34rpx;
+  font-size: 31rpx;
   font-weight: 600;
   color: #2f261f;
 }
@@ -107,7 +137,7 @@
 }
 
 .checkout-btn {
-  width: 220rpx;
+  width: 176rpx;
   flex-shrink: 0;
 }
 

@@ -1,0 +1,54 @@
+<view class="page-shell checkout-page">
+  <view class="page-header">
+    <view class="page-title">确认下单</view>
+    <view class="page-desc">再看一眼已选菜品和金额，确认无误后再提交。</view>
+  </view>
+
+  <view wx:if="{{!checkoutState.isEmpty}}">
+    <view class="checkout-card card">
+      <view class="section-title">{{checkoutState.restaurantName}}</view>
+      <view class="section-tip">共 {{checkoutState.totalCount}} 份，现做现出餐。</view>
+
+      <view class="item-list">
+        <view class="item-row" wx:for="{{checkoutState.items}}" wx:key="dishId">
+          <view class="item-main">
+            <view class="item-name">{{item.name}}</view>
+            <view class="item-meta">¥{{item.price}} / {{item.unit}}，共 {{item.quantity}}{{item.unit}}</view>
+          </view>
+          <view class="item-amount">¥{{item.lineAmount}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="summary-card card">
+      <view class="summary-row">
+        <text>菜品合计</text>
+        <text>¥{{checkoutState.totalAmount}}</text>
+      </view>
+      <view class="summary-row summary-row-total">
+        <text>应付金额</text>
+        <text>¥{{checkoutState.totalAmount}}</text>
+      </view>
+      <view class="summary-tip">这一步只创建订单，支付会在后续单独接入。</view>
+    </view>
+
+    <view class="bottom-panel">
+      <view class="submit-bar">
+        <view>
+          <view class="submit-total">合计 ¥{{checkoutState.totalAmount}}</view>
+          <view class="submit-tip">确认后会生成订单，并清空当前购物车。</view>
+        </view>
+        <button class="primary-btn submit-btn pressable" hover-class="tap-feedback" bindtap="confirmOrder" loading="{{isSubmitting}}">
+          确认下单
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="card empty-state">
+    <view class="empty-title">还没有可提交的菜品</view>
+    <view class="empty-desc">先回购物车看看，或者去菜单页再选几样菜吧。</view>
+    <button class="primary-btn empty-btn pressable" hover-class="tap-feedback" bindtap="goMenu">去点餐</button>
+    <button class="ghost-btn back-btn pressable" hover-class="tap-feedback" bindtap="goBackCart">返回购物车</button>
+  </view>
+</view>

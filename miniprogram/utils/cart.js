@@ -1,6 +1,8 @@
-function normalizePrice(value) {
-  return Number(Number(value || 0).toFixed(2));
-}
+const {
+  normalizeAmount,
+  multiplyAmount,
+  sumAmounts,
+} = require("./amount");
 
 function normalizeCartItems(cartItems) {
   if (!Array.isArray(cartItems)) {
@@ -11,16 +13,29 @@ function normalizeCartItems(cartItems) {
     .filter((item) => item && item.dishId && item.quantity > 0)
     .map((item) => ({
       dishId: item.dishId,
-      name: item.name || "",
-      price: normalizePrice(item.price),
-      image: item.image || "/images/default-goods-image.png",
       quantity: Number(item.quantity) || 1,
     }));
 }
 
-function addDishToCart(cartItems, dish) {
+function buildDishIndex(dishes) {
+  const safeDishes = Array.isArray(dishes) ? dishes : [];
+
+  return safeDishes.reduce((dishMap, dish) => {
+    dishMap[dish.id] = dish;
+    return dishMap;
+  }, {});
+}
+
+function buildCartQuantityMap(cartItems) {
+  return normalizeCartItems(cartItems).reduce((quantityMap, item) => {
+    quantityMap[item.dishId] = item.quantity;
+    return quantityMap;
+  }, {});
+}
+
+function addDishToCart(cartItems, dishId) {
   const nextItems = normalizeCartItems(cartItems);
-  const targetIndex = nextItems.findIndex((item) => item.dishId === dish.id);
+  const targetIndex = nextItems.findIndex((item) => item.dishId === dishId);
 
   if (targetIndex > -1) {
     nextItems[targetIndex] = {
@@ -31,10 +46,7 @@ function addDishToCart(cartItems, dish) {
   }
 
   return nextItems.concat({
-    dishId: dish.id,
-    name: dish.name,
-    price: normalizePrice(dish.price),
-    image: dish.image,
+    dishId,
     quantity: 1,
   });
 }
@@ -66,29 +78,29 @@ function getCartCount(cartItems) {
 }
 
 function buildCartState(cartItems, dishes) {
-  const dishMap = {};
-  const safeDishes = Array.isArray(dishes) ? dishes : [];
+  const dishMap = buildDishIndex(dishes);
   const safeItems = normalizeCartItems(cartItems);
-
-  safeDishes.forEach((dish) => {
-    dishMap[dish.id] = dish;
-  });
 
   const items = safeItems.map((item) => {
     const dish = dishMap[item.dishId] || {};
-    const subtotal = normalizePrice(item.price * item.quantity);
+    const price = normalizeAmount(dish.price);
+    const lineAmount = multiplyAmount(price, item.quantity);
 
     return {
-      ...item,
+      dishId: item.dishId,
+      quantity: item.quantity,
+      name: dish.name || "",
       description: dish.description || "",
+      price,
+      unit: dish.unit || "份",
+      image: dish.image || "/images/default-goods-image.png",
       tag: dish.tag || "",
-      subtotal,
+      lineAmount,
+      subtotal: lineAmount,
     };
-  });
+  }).filter((item) => item.name);
 
-  const totalAmount = normalizePrice(
-    items.reduce((sum, item) => sum + item.subtotal, 0)
-  );
+  const totalAmount = sumAmounts(items.map((item) => item.lineAmount));
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
@@ -99,11 +111,52 @@ function buildCartState(cartItems, dishes) {
   };
 }
 
+function buildMenuState(options) {
+  const safeOptions = options || {};
+  const safeCategories = Array.isArray(safeOptions.categories)
+    ? safeOptions.categories
+    : [];
+  const safeDishes = Array.isArray(safeOptions.dishes) ? safeOptions.dishes : [];
+  const quantityMap = buildCartQuantityMap(safeOptions.cartItems);
+  const activeCategoryId =
+    safeOptions.activeCategoryId || (safeCategories[0] && safeCategories[0].id) || "";
+  const dishList = safeDishes
+    .filter((dish) => dish.categoryId === activeCategoryId && dish.status === "on")
+    .sort((prev, next) => prev.sort - next.sort)
+    .map((dish) => ({
+      ...dish,
+      cartQuantity: quantityMap[dish.id] || 0,
+    }));
+  const categories = safeCategories
+    .slice()
+    .sort((prev, next) => prev.sort - next.sort)
+    .map((category) => ({
+      ...category,
+      selectedCount: safeDishes
+        .filter((dish) => dish.categoryId === category.id)
+        .reduce((sum, dish) => sum + (quantityMap[dish.id] || 0), 0),
+    }));
+  const cartState = buildCartState(safeOptions.cartItems, safeDishes);
+
+  return {
+    activeCategoryId,
+    categories,
+    dishList,
+    cartSummary: {
+      totalCount: cartState.totalCount,
+      totalAmount: cartState.totalAmount,
+      isEmpty: cartState.isEmpty,
+    },
+  };
+}
+
 module.exports = {
   normalizeCartItems,
   addDishToCart,
   updateCartItemQuantity,
   removeCartItem,
   buildCartState,
+  buildMenuState,
+  buildCartQuantityMap,
   getCartCount,
 };

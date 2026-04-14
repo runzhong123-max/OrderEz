@@ -4,7 +4,11 @@ Page({
     categories: [],
     activeCategoryId: "",
     dishList: [],
-    cartCount: 0,
+    cartSummary: {
+      totalCount: 0,
+      totalAmount: 0,
+      isEmpty: true,
+    },
   },
 
   onLoad() {
@@ -14,36 +18,25 @@ Page({
 
     this.setData({
       restaurant: menuData.restaurant,
-      categories: menuData.categories,
       activeCategoryId: firstCategory.id || "",
     });
 
-    this.syncDishList();
+    this.syncMenuState();
   },
 
   onShow() {
-    this.syncCartCount();
+    this.syncMenuState();
   },
 
-  syncDishList() {
+  syncMenuState() {
     const app = getApp();
-    const menuData = app.getMenuData();
-    const activeCategoryId = this.data.activeCategoryId;
-    const dishList = menuData.dishes.filter(
-      (item) => item.categoryId === activeCategoryId
-    );
+    const menuState = app.getMenuState(this.data.activeCategoryId);
 
     this.setData({
-      dishList,
-    });
-  },
-
-  syncCartCount() {
-    const app = getApp();
-    const cartState = app.getCartState();
-
-    this.setData({
-      cartCount: cartState.totalCount,
+      activeCategoryId: menuState.activeCategoryId,
+      categories: menuState.categories,
+      dishList: menuState.dishList,
+      cartSummary: menuState.cartSummary,
     });
   },
 
@@ -54,7 +47,7 @@ Page({
       activeCategoryId: id,
     });
 
-    this.syncDishList();
+    this.syncMenuState();
   },
 
   addToCart(e) {
@@ -70,9 +63,7 @@ Page({
       return;
     }
 
-    this.setData({
-      cartCount: result.cartState.totalCount,
-    });
+    this.syncMenuState();
 
     wx.showToast({
       title: "已加入购物车",

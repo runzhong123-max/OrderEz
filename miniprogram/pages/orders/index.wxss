@@ -7,11 +7,11 @@
 .order-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .order-card {
-  padding: 26rpx;
+  padding: 22rpx;
 }
 
 .order-head {
@@ -22,39 +22,39 @@
 }
 
 .order-id {
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 600;
   color: #2f261f;
 }
 
 .order-time {
-  margin-top: 10rpx;
-  font-size: 24rpx;
+  margin-top: 8rpx;
+  font-size: 22rpx;
   color: #8a7c70;
 }
 
 .order-status {
   display: inline-flex;
   align-items: center;
-  height: 52rpx;
-  padding: 0 20rpx;
+  height: 44rpx;
+  padding: 0 16rpx;
   border-radius: 999rpx;
   background: #eef4ee;
   color: #2f6b4f;
-  font-size: 24rpx;
+  font-size: 21rpx;
 }
 
 .order-summary {
-  margin-top: 24rpx;
-  font-size: 28rpx;
+  margin-top: 20rpx;
+  font-size: 26rpx;
   line-height: 1.7;
   color: #55493f;
 }
 
 .order-items {
-  margin-top: 22rpx;
-  padding: 22rpx;
-  border-radius: 22rpx;
+  margin-top: 18rpx;
+  padding: 18rpx;
+  border-radius: 18rpx;
   background: #f8f3ec;
 }
 
@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 25rpx;
+  font-size: 23rpx;
   color: #6c6055;
 }
 
@@ -74,11 +74,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 24rpx;
+  margin-top: 20rpx;
 }
 
 .order-payment {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #8b6b58;
 }
 

@@ -7,12 +7,12 @@
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 360rpx;
+  min-height: 328rpx;
 }
 
 .hero-image {
   width: 100%;
-  height: 360rpx;
+  height: 328rpx;
 }
 
 .hero-mask {
@@ -23,9 +23,9 @@
 
 .hero-content {
   position: absolute;
-  left: 28rpx;
-  right: 28rpx;
-  bottom: 30rpx;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: 24rpx;
 }
 
 .hero-tag {
@@ -40,41 +40,41 @@
 }
 
 .hero-title {
-  margin-top: 18rpx;
-  font-size: 56rpx;
+  margin-top: 14rpx;
+  font-size: 48rpx;
   font-weight: 600;
   color: #fffaf4;
 }
 
 .hero-subtitle {
-  margin-top: 12rpx;
-  font-size: 26rpx;
+  margin-top: 10rpx;
+  font-size: 24rpx;
   line-height: 1.7;
   color: rgba(255, 250, 244, 0.9);
 }
 
 .intro {
-  margin-top: 24rpx;
-  padding: 28rpx;
+  margin-top: 20rpx;
+  padding: 24rpx;
 }
 
 .intro-text {
-  margin-top: 18rpx;
-  font-size: 28rpx;
+  margin-top: 16rpx;
+  font-size: 25rpx;
   line-height: 1.8;
   color: #594c41;
 }
 
 .intro-grid {
   display: flex;
-  gap: 20rpx;
-  margin-top: 28rpx;
+  gap: 14rpx;
+  margin-top: 24rpx;
 }
 
 .intro-item {
   flex: 1;
-  padding: 22rpx;
-  border-radius: 22rpx;
+  padding: 18rpx;
+  border-radius: 18rpx;
   background: #f6efe6;
 }
 
@@ -84,74 +84,74 @@
 }
 
 .intro-value {
-  margin-top: 12rpx;
-  font-size: 28rpx;
+  margin-top: 10rpx;
+  font-size: 25rpx;
   color: #332a22;
 }
 
 .notice {
-  margin-top: 24rpx;
-  padding: 22rpx 24rpx;
-  border-radius: 20rpx;
+  margin-top: 20rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 18rpx;
   background: #fbf6f0;
   color: #7d6d5d;
-  font-size: 24rpx;
+  font-size: 22rpx;
   line-height: 1.7;
 }
 
 .entry-list {
-  margin-top: 24rpx;
+  margin-top: 20rpx;
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .entry {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 28rpx;
+  gap: 16rpx;
+  padding: 22rpx;
 }
 
 .entry-title {
-  font-size: 34rpx;
+  font-size: 31rpx;
   font-weight: 600;
   color: #2e251e;
 }
 
 .entry-desc {
-  margin-top: 10rpx;
-  font-size: 25rpx;
+  margin-top: 8rpx;
+  font-size: 23rpx;
   line-height: 1.7;
   color: #817365;
 }
 
 .entry-btn {
-  width: 220rpx;
+  width: 180rpx;
   flex-shrink: 0;
 }
 
 .quick {
-  margin-top: 24rpx;
-  padding: 28rpx;
+  margin-top: 20rpx;
+  padding: 24rpx;
 }
 
 .quick-row {
   display: flex;
-  gap: 20rpx;
-  margin-top: 24rpx;
+  gap: 14rpx;
+  margin-top: 20rpx;
 }
 
 .quick-item {
   flex: 1;
-  padding: 24rpx;
-  border-radius: 24rpx;
+  padding: 20rpx;
+  border-radius: 18rpx;
   background: #f6efe6;
 }
 
 .quick-number {
-  font-size: 56rpx;
+  font-size: 48rpx;
   font-weight: 600;
   color: #2f6b4f;
 }
