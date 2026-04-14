@@ -1,0 +1,87 @@
+.orders-page {
+  background:
+    radial-gradient(circle at top left, rgba(210, 222, 198, 0.24), transparent 30%),
+    #f7f3ee;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.order-card {
+  padding: 26rpx;
+}
+
+.order-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.order-id {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2f261f;
+}
+
+.order-time {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #8a7c70;
+}
+
+.order-status {
+  display: inline-flex;
+  align-items: center;
+  height: 52rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  background: #eef4ee;
+  color: #2f6b4f;
+  font-size: 24rpx;
+}
+
+.order-summary {
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: #55493f;
+}
+
+.order-items {
+  margin-top: 22rpx;
+  padding: 22rpx;
+  border-radius: 22rpx;
+  background: #f8f3ec;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 25rpx;
+  color: #6c6055;
+}
+
+.order-item + .order-item {
+  margin-top: 14rpx;
+}
+
+.order-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+
+.order-payment {
+  font-size: 24rpx;
+  color: #8b6b58;
+}
+
+.empty-btn {
+  margin-top: 36rpx;
+}

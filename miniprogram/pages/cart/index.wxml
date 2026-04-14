@@ -1,0 +1,47 @@
+<view class="page-shell cart-page">
+  <view class="page-header">
+    <view class="page-title">购物车</view>
+    <view class="page-desc">先确认一下已选菜品，数量和金额都可以在这里调整。</view>
+  </view>
+
+  <view wx:if="{{!cartState.isEmpty}}">
+    <view class="cart-list">
+      <view class="cart-card card" wx:for="{{cartState.items}}" wx:key="dishId">
+        <image class="cart-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="cart-content">
+          <view class="cart-top">
+            <view>
+              <view class="cart-name">{{item.name}}</view>
+              <view class="cart-desc">{{item.description}}</view>
+            </view>
+            <view class="price-text">¥{{item.subtotal}}</view>
+          </view>
+          <view class="cart-bottom">
+            <view class="stepper">
+              <button class="stepper-btn" data-id="{{item.dishId}}" bindtap="decreaseCount">-</button>
+              <view class="stepper-value">{{item.quantity}}</view>
+              <button class="stepper-btn" data-id="{{item.dishId}}" bindtap="increaseCount">+</button>
+            </view>
+            <button class="remove-btn" data-id="{{item.dishId}}" bindtap="removeItem">删除</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-panel">
+      <view class="checkout-bar">
+        <view>
+          <view class="checkout-total">合计 ¥{{cartState.totalAmount}}</view>
+          <view class="checkout-tip">当前先提交流程，后续会在下一步接入支付。</view>
+        </view>
+        <button class="primary-btn checkout-btn" bindtap="submitOrder">提交订单</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="card empty-state">
+    <view class="empty-title">购物车还是空的</view>
+    <view class="empty-desc">先去选几样菜吧，热菜和主食都已经准备好了。</view>
+    <button class="primary-btn empty-btn" bindtap="goMenu">再逛逛</button>
+  </view>
+</view>

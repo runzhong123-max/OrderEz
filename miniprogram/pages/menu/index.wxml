@@ -1,0 +1,47 @@
+<view class="page-shell menu-page">
+  <view class="page-header">
+    <view class="page-title">今天吃点什么</view>
+    <view class="page-desc">{{restaurant.notice}}</view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x="true" show-scrollbar="false">
+    <view class="category-list">
+      <view
+        wx:for="{{categories}}"
+        wx:key="id"
+        class="category-item {{activeCategoryId === item.id ? 'category-item-active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="selectCategory"
+      >
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="dish-list">
+    <view class="dish-card card" wx:for="{{dishList}}" wx:key="id">
+      <image class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="dish-content">
+        <view class="dish-top">
+          <view class="dish-name">{{item.name}}</view>
+          <view class="tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        </view>
+        <view class="dish-desc">{{item.description}}</view>
+        <view class="dish-bottom">
+          <view class="price-text">¥{{item.price}}</view>
+          <button class="add-btn" data-id="{{item.id}}" bindtap="addToCart">加入购物车</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-panel">
+    <view class="cart-bar">
+      <view>
+        <view class="cart-title">已选 {{cartCount}} 份</view>
+        <view class="cart-tip">选好后可以去购物车调整数量。</view>
+      </view>
+      <button class="primary-btn cart-action" bindtap="goCart">去购物车</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,59 @@
+<view class="page-shell home-page">
+  <view class="hero card">
+    <image class="hero-image" src="{{restaurant.coverImage}}" mode="aspectFill"></image>
+    <view class="hero-mask"></view>
+    <view class="hero-content">
+      <view class="hero-tag">今日营业中</view>
+      <view class="hero-title">{{restaurant.name}}</view>
+      <view class="hero-subtitle">{{restaurant.shortIntro}}</view>
+    </view>
+  </view>
+
+  <view class="intro card">
+    <view class="section-title">先吃点什么</view>
+    <view class="intro-text">{{restaurant.intro}}</view>
+    <view class="intro-grid">
+      <view class="intro-item">
+        <view class="intro-label">营业时间</view>
+        <view class="intro-value">{{restaurant.businessHours}}</view>
+      </view>
+      <view class="intro-item">
+        <view class="intro-label">门店地址</view>
+        <view class="intro-value">{{restaurant.address}}</view>
+      </view>
+    </view>
+    <view class="notice">{{restaurant.notice}}</view>
+  </view>
+
+  <view class="entry-list">
+    <view class="entry card">
+      <view>
+        <view class="entry-title">去点餐</view>
+        <view class="entry-desc">看看今天有什么热菜和主食。</view>
+      </view>
+      <button class="primary-btn entry-btn" bindtap="goMenu">去点餐</button>
+    </view>
+
+    <view class="entry card">
+      <view>
+        <view class="entry-title">查看订单</view>
+        <view class="entry-desc">已下单 {{orderCount}} 笔，随时回来看看进度。</view>
+      </view>
+      <button class="ghost-btn entry-btn" bindtap="goOrders">查看订单</button>
+    </view>
+  </view>
+
+  <view class="quick card">
+    <view class="section-title">当前状态</view>
+    <view class="quick-row">
+      <view class="quick-item">
+        <view class="quick-number">{{cartCount}}</view>
+        <view class="quick-label">购物车菜品</view>
+      </view>
+      <view class="quick-item">
+        <view class="quick-number">{{orderCount}}</view>
+        <view class="quick-label">订单记录</view>
+      </view>
+    </view>
+  </view>
+</view>
