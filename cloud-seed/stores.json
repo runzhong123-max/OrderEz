@@ -1,0 +1,15 @@
+[
+  {
+    "id": "store-001",
+    "name": "小满食堂",
+    "description": "现点现做的家常小馆，主打热乎顺口的米饭、小炒和暖汤，适合一个人吃饭，也适合同事朋友顺路坐坐。",
+    "address": "幸福里街口 18 号",
+    "phone": "13800138000",
+    "businessHours": "11:00-21:30",
+    "coverImage": "/images/default-goods-image.png",
+    "notice": "厨房高峰时段出餐大约 15 到 20 分钟，请稍等一会儿。",
+    "status": "active",
+    "createdAt": "2026-04-14T10:00:00+08:00",
+    "updatedAt": "2026-04-14T10:00:00+08:00"
+  }
+]

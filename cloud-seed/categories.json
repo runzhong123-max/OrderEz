@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cat-signature",
+    "storeId": "store-001",
+    "name": "招牌推荐",
+    "sort": 10,
+    "status": "active",
+    "createdAt": "2026-04-14T10:00:00+08:00",
+    "updatedAt": "2026-04-14T10:00:00+08:00"
+  },
+  {
+    "id": "cat-staple",
+    "storeId": "store-001",
+    "name": "主食热菜",
+    "sort": 20,
+    "status": "active",
+    "createdAt": "2026-04-14T10:00:00+08:00",
+    "updatedAt": "2026-04-14T10:00:00+08:00"
+  },
+  {
+    "id": "cat-soup",
+    "storeId": "store-001",
+    "name": "汤饮小食",
+    "sort": 30,
+    "status": "active",
+    "createdAt": "2026-04-14T10:00:00+08:00",
+    "updatedAt": "2026-04-14T10:00:00+08:00"
+  },
+  {
+    "id": "cat-seasonal",
+    "storeId": "store-001",
+    "name": "时令限定",
+    "sort": 40,
+    "status": "hidden",
+    "createdAt": "2026-04-14T10:00:00+08:00",
+    "updatedAt": "2026-04-14T10:00:00+08:00"
+  }
+]

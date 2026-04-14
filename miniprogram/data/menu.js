@@ -1,4 +1,18 @@
 const DEFAULT_DISH_IMAGE = "/images/default-goods-image.png";
+const DEFAULT_STORE_ID = "store-001";
+
+function normalizeDishStatus(status) {
+  const statusMap = {
+    active: "active",
+    sold_out: "sold_out",
+    inactive: "inactive",
+    on: "active",
+    soldout: "sold_out",
+    off: "inactive",
+  };
+
+  return statusMap[status] || "active";
+}
 
 function createCategory(category) {
   return {
@@ -18,14 +32,15 @@ function createDish(dish) {
     image: dish.image || DEFAULT_DISH_IMAGE,
     tag: dish.tag || "",
     unit: dish.unit || "份",
-    status: dish.status || "on",
+    status: normalizeDishStatus(dish.status),
     sort: Number(dish.sort || 0),
   };
 }
 
 const restaurant = {
+  id: DEFAULT_STORE_ID,
   name: "小满食堂",
-  shortIntro: "现点现做，吃顿舒服的家常饭。",
+  shortIntro: "现点现做，吃舒服的家常饭。",
   intro:
     "店里主打热乎家常菜和当日小炒，口味清爽不重油，适合一个人吃饭，也适合和朋友随便坐坐。",
   notice: "厨房正在备餐，招牌菜大约 15 分钟出餐。",
@@ -112,6 +127,7 @@ const dishes = [
 ];
 
 module.exports = {
+  DEFAULT_STORE_ID,
   restaurant,
   categories,
   dishes,

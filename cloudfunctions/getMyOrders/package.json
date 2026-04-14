@@ -1,0 +1,11 @@
+{
+  "name": "getMyOrders",
+  "version": "1.0.0",
+  "description": "CloudBase function for fetching current user's orders",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

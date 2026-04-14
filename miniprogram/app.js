@@ -11,7 +11,9 @@ const {
 } = require("./utils/cart");
 const {
   buildCheckoutState,
+  buildOrderDisplayList,
   createOrderSubmission,
+  normalizeOrderList,
 } = require("./services/order");
 
 const CART_STORAGE_KEY = "order-ez-cart";
@@ -26,27 +28,28 @@ function cloneOrderList(orderList) {
   }));
 }
 
-function loadOrderList() {
+function loadOrderList(currentRestaurant) {
   const storedOrders = wx.getStorageSync(ORDER_STORAGE_KEY);
+  const sourceOrders =
+    Array.isArray(storedOrders) && storedOrders.length ? storedOrders : mockOrders;
 
-  if (Array.isArray(storedOrders) && storedOrders.length) {
-    return cloneOrderList(storedOrders);
-  }
-
-  return cloneOrderList(mockOrders);
+  return normalizeOrderList(cloneOrderList(sourceOrders), currentRestaurant);
 }
 
 App({
   onLaunch() {
+    const orderList = loadOrderList(restaurant);
+
     this.globalData = {
       restaurant,
       categories,
       dishes,
       cartItems: normalizeCartItems(wx.getStorageSync(CART_STORAGE_KEY)),
-      orders: loadOrderList(),
+      orders: orderList,
       pendingPayment: null,
     };
 
+    this.persistOrders();
     this.updateCartBadge();
   },
 
@@ -80,7 +83,7 @@ App({
   },
 
   getOrders() {
-    return cloneOrderList(this.globalData.orders);
+    return buildOrderDisplayList(this.globalData.orders, this.globalData.restaurant);
   },
 
   setCartItems(cartItems) {
@@ -133,7 +136,7 @@ App({
       };
     }
 
-    if (dish.status !== "on") {
+    if (dish.status !== "active") {
       return {
         success: false,
         message: "这道菜暂时不能点",

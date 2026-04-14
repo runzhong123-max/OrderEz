@@ -1,0 +1,4 @@
+{"id":"cat-signature","storeId":"store-001","name":"\u62db\u724c\u63a8\u8350","sort":10,"status":"active","createdAt":"2026-04-14T10:00:00+08:00","updatedAt":"2026-04-14T10:00:00+08:00"}
+{"id":"cat-staple","storeId":"store-001","name":"\u4e3b\u98df\u70ed\u83dc","sort":20,"status":"active","createdAt":"2026-04-14T10:00:00+08:00","updatedAt":"2026-04-14T10:00:00+08:00"}
+{"id":"cat-soup","storeId":"store-001","name":"\u6c64\u996e\u5c0f\u98df","sort":30,"status":"active","createdAt":"2026-04-14T10:00:00+08:00","updatedAt":"2026-04-14T10:00:00+08:00"}
+{"id":"cat-seasonal","storeId":"store-001","name":"\u65f6\u4ee4\u9650\u5b9a","sort":40,"status":"hidden","createdAt":"2026-04-14T10:00:00+08:00","updatedAt":"2026-04-14T10:00:00+08:00"}

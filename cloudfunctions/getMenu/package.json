@@ -1,0 +1,11 @@
+{
+  "name": "getMenu",
+  "version": "1.0.0",
+  "description": "CloudBase function for fetching menu data",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

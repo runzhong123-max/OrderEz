@@ -1,0 +1,11 @@
+{
+  "name": "seedInitialData",
+  "version": "1.0.0",
+  "description": "CloudBase function for development-only seed data initialization",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

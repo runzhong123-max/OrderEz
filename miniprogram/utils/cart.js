@@ -81,24 +81,26 @@ function buildCartState(cartItems, dishes) {
   const dishMap = buildDishIndex(dishes);
   const safeItems = normalizeCartItems(cartItems);
 
-  const items = safeItems.map((item) => {
-    const dish = dishMap[item.dishId] || {};
-    const price = normalizeAmount(dish.price);
-    const lineAmount = multiplyAmount(price, item.quantity);
+  const items = safeItems
+    .map((item) => {
+      const dish = dishMap[item.dishId] || {};
+      const price = normalizeAmount(dish.price);
+      const lineAmount = multiplyAmount(price, item.quantity);
 
-    return {
-      dishId: item.dishId,
-      quantity: item.quantity,
-      name: dish.name || "",
-      description: dish.description || "",
-      price,
-      unit: dish.unit || "份",
-      image: dish.image || "/images/default-goods-image.png",
-      tag: dish.tag || "",
-      lineAmount,
-      subtotal: lineAmount,
-    };
-  }).filter((item) => item.name);
+      return {
+        dishId: item.dishId,
+        quantity: item.quantity,
+        name: dish.name || "",
+        description: dish.description || "",
+        price,
+        unit: dish.unit || "份",
+        image: dish.image || "/images/default-goods-image.png",
+        tag: dish.tag || "",
+        lineAmount,
+        subtotal: lineAmount,
+      };
+    })
+    .filter((item) => item.name);
 
   const totalAmount = sumAmounts(items.map((item) => item.lineAmount));
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -119,9 +121,14 @@ function buildMenuState(options) {
   const safeDishes = Array.isArray(safeOptions.dishes) ? safeOptions.dishes : [];
   const quantityMap = buildCartQuantityMap(safeOptions.cartItems);
   const activeCategoryId =
-    safeOptions.activeCategoryId || (safeCategories[0] && safeCategories[0].id) || "";
+    safeOptions.activeCategoryId ||
+    (safeCategories[0] && safeCategories[0].id) ||
+    "";
   const dishList = safeDishes
-    .filter((dish) => dish.categoryId === activeCategoryId && dish.status === "on")
+    .filter(
+      (dish) =>
+        dish.categoryId === activeCategoryId && dish.status === "active"
+    )
     .sort((prev, next) => prev.sort - next.sort)
     .map((dish) => ({
       ...dish,

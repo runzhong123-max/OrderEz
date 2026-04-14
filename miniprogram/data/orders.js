@@ -1,6 +1,9 @@
 const mockOrders = [
   {
     id: "OD20260412001",
+    orderNo: "OD20260412001",
+    storeId: "store-001",
+    orderType: "dine_in",
     items: [
       {
         dishId: "braised-pork-rice",
@@ -19,15 +22,22 @@ const mockOrders = [
         quantity: 1,
       },
     ],
+    itemCount: 2,
     summary: "梅干菜扣肉饭、桂花米酒小圆子",
     totalAmount: 46,
+    discountAmount: 0,
     payableAmount: 46,
     createdAt: "2026-04-12 12:18",
-    status: "已完成",
-    paymentStatus: "已支付",
+    updatedAt: "2026-04-12 12:35",
+    status: "completed",
+    paymentStatus: "paid",
+    source: "miniapp_customer",
   },
   {
     id: "OD20260413002",
+    orderNo: "OD20260413002",
+    storeId: "store-001",
+    orderType: "dine_in",
     items: [
       {
         dishId: "pepper-beef",
@@ -46,12 +56,16 @@ const mockOrders = [
         quantity: 1,
       },
     ],
+    itemCount: 2,
     summary: "青椒牛肉、海带排骨汤",
     totalAmount: 62,
+    discountAmount: 0,
     payableAmount: 62,
     createdAt: "2026-04-13 18:42",
-    status: "制作中",
-    paymentStatus: "待支付",
+    updatedAt: "2026-04-13 18:50",
+    status: "preparing",
+    paymentStatus: "paid",
+    source: "miniapp_customer",
   },
 ];
 
